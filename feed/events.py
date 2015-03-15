@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-""" calendar.py
+""" events.py
     =========
     Author: Anthony Sutardja
     Last modified: 2015-03-15
@@ -8,7 +8,6 @@
 """
 import httplib
 import time
-from collections import namedtuple
 
 from pyquery import PyQuery as pq
 
