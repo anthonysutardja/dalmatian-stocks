@@ -12,7 +12,7 @@ import sys
 
 
 def validate_stock_symbol(symbol):
-    """Docstring hur"""
+    """Return the symbol if it is valid."""
     symbol = str(symbol).upper()
     charlist = string.ascii_uppercase + "." + "-"
     for ch in symbol:
@@ -21,25 +21,21 @@ def validate_stock_symbol(symbol):
     return symbol
 
 
-def get_quote_from_google(symbol, retry=0):
-    """Gets the quote of a symbol"""
-    NUM_RETRY = 5
+def get_quote_from_google(symbol):
+    """Return a tuple containing market quote information for a symbol.
+
+    Information is requested from Google.
+    """
     base_url = "www.google.com"
     query_path = "/finance/getprices?i=60&p=1d&f=d,o,h,l,c,v&df=cpct&q="
 
     # Query must contain symbols in capital letters
-    try:
-        symbol = validate_stock_symbol(symbol)
-    except ValueError:
-        raise ValueError("Symbol is not valid")
+    symbol = validate_stock_symbol(symbol)
 
     # Make request
     conn = httplib.HTTPConnection(base_url)
     conn.request("GET", query_path + symbol)
     response = conn.getresponse().read().rsplit()
-
-    if len(response) == 0:
-        raise ValueError("Server did not respond")
 
     # Check if symbol was valid.
     # strips away 'EXCHANGE%3D' from first line of response
@@ -54,6 +50,11 @@ def get_quote_from_google(symbol, retry=0):
 
 
 def get_quote_from_yahoo(symbol):
+    """Return a tuple containing market quote information for a symbol.
+
+    Information is requested from Yahoo.
+    """
+
     symbol = validate_stock_symbol(symbol)
     base_url = "chartapi.finance.yahoo.com"
     query_path = "/instrument/1.0/" + symbol + "/chartdata;type=quote;range=1d/csv/"
