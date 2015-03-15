@@ -2,9 +2,9 @@
 """ stocks.py
     =========
     Author: Anthony Sutardja
-    Last modified: 2012-07-02
+    Last modified: 2015-03-15
     =========
-    Lost in translation.
+    Methods to fetch stock quotes from external sources.
 """
 import httplib
 import string
