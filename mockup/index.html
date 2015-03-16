@@ -1,0 +1,40 @@
+<html>
+	<title>CS 294</title>
+
+	<head>
+		<link rel="import" href="bower_components/polymer/polymer.html">
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+
+	<body>
+		<polymer-element name="stock-item" attributes="stock-name">
+			<template>
+			Stock: <content></content> <br>
+			</template>
+		</polymer-element>
+
+		<div class="header">
+			<h1>STCK.CO</h1>
+		</div>
+
+		<div class="nav">
+			<h2>Welcome, John!</h2>
+			<ul class="links">
+				<li>Profile</li>
+				<li>Settings</li>
+			</ul>
+
+			<h2>Stocks</h2>
+			<ul class="links">
+				<li>GOOG</li>
+				<li>AAPL</li>
+				<li>BOX</li>
+				<li>FB</li>
+			</ul>
+		</div>
+
+		<div class="content-container">  
+			<stock-item stock-name="GOOG"></stock-item>
+		</div>
+	</body>
+</html>
