@@ -1,0 +1,27 @@
+{
+  "name": "stck",
+  "version": "0.0.0",
+  "homepage": "https://github.com/anthonysutardja/dalmatian-stocks",
+  "authors": [
+    "Andrew Fang <andrewbrianfang@gmail.com>",
+    "Anthony Sutardja <anthony.sutardja@gmail.com>",
+    "Erica Yin <ericayin@berkeley.edu>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^0.5",
+    "core-icon-button": "Polymer/core-icon-button#^0.5.0",
+    "font-roboto": "Polymer/font-roboto#^0.5.0",
+    "core-header-panel": "Polymer/core-header-panel#^0.5.0",
+    "core-toolbar": "Polymer/core-toolbar#^0.5.0",
+    "paper-tabs": "Polymer/paper-tabs#^0.5.0",
+    "core-ajax": "Polymer/core-ajax#^0.5.0"
+  }
+}

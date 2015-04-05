@@ -1,0 +1,32 @@
+[
+  {
+    "uid": 1,
+    "name": "Google",
+    "symbol": "GOOG"
+  },
+  {
+    "uid": 2,
+    "name": "Facebook",
+    "symbol": "FB"
+  },
+  {
+    "uid": 3,
+    "name": "Box",
+    "symbol": "BOX"
+  },
+  {
+    "uid": 4,
+    "name": "Amazon",
+    "symbol": "AMZN"
+  },
+  {
+    "uid": 5,
+    "name": "Apple",
+    "symbol": "AAPL"
+  },
+  {
+    "uid": 6,
+    "name": "Microsoft",
+    "symbol": "MSFT"
+  }
+]

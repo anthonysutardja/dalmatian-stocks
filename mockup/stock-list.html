@@ -1,0 +1,44 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../stock-service.html">
+
+<polymer-element name="stock-list" attributes="show">
+  <template>
+    <style>
+    :host {
+      display: block;
+      width: 100%;
+    }
+
+    .stockListItem {
+      display: block;
+      padding: 20px 10px;
+      border-top: 2px solid #fff;
+    }
+
+    .stockListItem:hover {
+      background: #fafafa;
+    }
+    #stockListDiv {
+      overflow: auto;
+      -webkit-overflow-scrolling: touch; 
+    }
+
+
+    </style>
+
+    <stock-service id="service" posts="{{stocks}}"></stock-service>
+    
+      <div id="stockListDiv">
+        <ul>
+        <template repeat="{{stock in stocks}}">
+            <li class="stockListItem">{{stock.symbol}}</li>
+        </template>
+        </ul>
+      </div>
+  </template>
+
+  <script>
+  Polymer({
+  });
+  </script>
+</polymer-element>

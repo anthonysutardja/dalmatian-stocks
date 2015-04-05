@@ -1,40 +1,57 @@
+<!doctype html>
 <html>
-	<title>CS 294</title>
 
-	<head>
-		<link rel="import" href="bower_components/polymer/polymer.html">
-		<link rel="stylesheet" type="text/css" href="style.css">
-	</head>
+<head>
 
-	<body>
-		<polymer-element name="stock-item" attributes="stock-name">
-			<template>
-			Stock: <content></content> <br>
-			</template>
-		</polymer-element>
+  <title>unquote</title>
 
-		<div class="header">
-			<h1>STCK.CO</h1>
-		</div>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
 
-		<div class="nav">
-			<h2>Welcome, John!</h2>
-			<ul class="links">
-				<li>Profile</li>
-				<li>Settings</li>
-			</ul>
+  <script src="./bower_components/webcomponentsjs/webcomponents.js"> </script>
+  <link rel="import" href="./bower_components/font-roboto/roboto.html">
+  <link rel="import" href="./bower_components/core-header-panel/core-header-panel.html">
+  <link rel="import" href="./bower_components/core-toolbar/core-toolbar.html">
+  <link rel="import" href="./bower_components/paper-tabs/paper-tabs.html">
+  <link rel="import" href="stock-list.html">
+  <link rel="stylesheet" type="text/css" href="style.css">
 
-			<h2>Stocks</h2>
-			<ul class="links">
-				<li>GOOG</li>
-				<li>AAPL</li>
-				<li>BOX</li>
-				<li>FB</li>
-			</ul>
-		</div>
+</head>
 
-		<div class="content-container">  
-			<stock-item stock-name="GOOG"></stock-item>
-		</div>
-	</body>
+<body unresolved>
+
+  <core-header-panel>
+
+    <core-toolbar>
+
+    <h1>STCK.CO</h1>
+
+    </core-toolbar>
+
+ <div class="nav">
+         <h2>Welcome, John!</h2>
+         <ul class="links">
+           <li>Profile</li>
+           <li>Settings</li>
+         </ul>
+
+         <h2>Stocks</h2>
+          <stock-list show="all"></stock-list>
+ </div>
+ <div class="main">
+ OHIO
+ </div>
+  </core-header-panel>
+
+
+
+  <script>
+  var tabs = document.querySelector('paper-tabs');
+  var list = document.querySelector('stock-list');
+
+  tabs.addEventListener('core-select', function() {
+    list.show = tabs.selected;
+  });
+  </script>
+</body>
+
 </html>
