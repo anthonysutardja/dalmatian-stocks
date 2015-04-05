@@ -3,7 +3,7 @@
 
 <head>
 
-  <title>unquote</title>
+  <title>294</title>
 
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
   <link rel="import" href="./bower_components/core-header-panel/core-header-panel.html">
   <link rel="import" href="./bower_components/core-toolbar/core-toolbar.html">
   <link rel="import" href="./bower_components/paper-tabs/paper-tabs.html">
+  <link rel="import" href="./bower_components/paper-icon-button/paper-icon-button.html">
   <link rel="import" href="stock-list.html">
   <link rel="import" href="stock-card.html">
+  <link rel="import" href="stock-card-earnings.html">
 
   <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
 </head>
 
@@ -24,13 +27,14 @@
   <core-header-panel>
 
     <core-toolbar>
+    <paper-icon-button id="navBtn" icon="menu" role="button" aria-label="menu"></paper-icon-button>
 
     <h1>STCK.CO</h1>
 
     </core-toolbar>
 
  <div class="nav">
-         <h2>Welcome, John!</h2>
+         <h2>Welcome, Anthony!</h2>
          <ul class="links">
            <li>Profile</li>
            <li>Settings</li>
@@ -41,14 +45,17 @@
  </div>
  <div class="main">
   <stock-card>
-   <h2>Name</h2>
-   <img src="test.png">
+   <h2>GOOG</h2>
+   <img class="graph" src="test.png">
    <p>StkSymbl</p>
+   <p class="growth">10%</p>
+   <p class="price">$500.00</p>
    </stock-card>
-  <stock-card>
-   <h2>Date</h2>
-   <p>dalwkja</p>
-   </stock-card>
+  <stock-card-earnings>
+   <h2>Google, Inc</h2>
+   <p class="lastEarnings">Jul 2</p>
+   <p class="nextEarnings">Aug 2</p>
+   </stock-card-earnings>
  </div>
   </core-header-panel>
 
@@ -57,10 +64,19 @@
   <script>
   var tabs = document.querySelector('paper-tabs');
   var list = document.querySelector('stock-list');
+  var navbtn = document.querySelector('paper-icon-button');
 
-  tabs.addEventListener('core-select', function() {
-    list.show = tabs.selected;
+  navbtn.addEventListener('click', function() {
+    if ($(".nav").css("opacity") == 1) {
+      $(".nav").fadeTo("fast", 0);
+      $(".main").animate({ 'marginLeft': '0px'}, 1000);
+    } else {
+      $(".main").animate({ 'marginLeft': '300px'}, 1000);
+      $(".nav").fadeTo("slow", 1);
+    }
   });
+
+
   </script>
 </body>
 

@@ -1,5 +1,7 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../stock-service.html">
+<link rel="import" href="./bower_components/polymer/polymer.html">
+<link rel="import" href="./bower_components/paper-button/paper-button.html">
+<link rel="import" href="./stock-service.html">
+
 
 <polymer-element name="stock-list" attributes="show">
   <template>
@@ -31,7 +33,7 @@
       <div id="stockListDiv">
         <ul>
         <template repeat="{{stock in stocks}}">
-            <li class="stockListItem">{{stock.symbol}}</li>
+            <paper-button class="">{{stock.symbol}}</paper-button>
         </template>
         </ul>
       </div>

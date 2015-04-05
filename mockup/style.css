@@ -1,6 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400);
 html, body {
   height: 100%;
+  background: #f7f7f7;
 }
 * {
 	margin: 0;
@@ -57,6 +58,7 @@ h2 {
 }
 .main {
   margin-left: 300px;
+  padding: 30px;
 }
 .content-container {
 	padding-top: 50px;
@@ -86,6 +88,11 @@ text-transform: uppercase;
 .container {
   width: 80%;
   margin: 50px auto;
+}
+stock-card, stock-card-earnings {
+  margin: 10px 30px 30px -10px;
+  padding-top: 30px;
+  padding-left: 30px;
 }
 @media (min-width: 481px) {
   #tabs {
