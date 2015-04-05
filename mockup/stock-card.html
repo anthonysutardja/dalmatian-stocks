@@ -1,0 +1,69 @@
+<link rel="import" href="./bower_components/polymer/polymer.html">
+<link rel="import" href="./bower_components/core-icon-button/core-icon-button.html">
+
+<polymer-element name="stock-card">
+  <template>
+
+    <style>
+    :host {
+      display: block;
+      position: relative;
+      background-color: #fff;
+      padding: 20px;
+      width: 100%;
+      font-size: 1.2rem;
+      font-weight: 300;
+    }
+    .card-header {
+      margin-bottom: 10px;
+    }
+    polyfill-next-selector { content: '.card-header h2'; }
+    .card-header ::content h2 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 300;
+    }
+    polyfill-next-selector { content: '.card-header img'; }
+    .card-header ::content img {
+      width: 70px;
+      border-radius: 50%;
+      margin: 10px;
+    }
+    core-icon-button {
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      color: #636363;
+    }
+    :host([favorite]) core-icon-button {
+      color: #da4336;
+    }
+    </style>
+
+    <div class="card-header" layout horizontal center>
+      <content select="h2"></content>
+    </div>
+      <paper-tabs id="tabs" selected="all" self-end>
+        <paper-tab name="1day">1 Day</paper-tab>
+        <paper-tab name="5day">5 Day</paper-tab>
+        <paper-tab name="1month">1 Month</paper-tab>
+        <paper-tab name="3month">3 Month</paper-tab>
+        <paper-tab name="1 year">1 Year</paper-tab>
+      </paper-tabs>
+    <content select="img"></content>   
+  </template>
+  <script>
+  Polymer({
+    publish: {
+      favorite: {
+        value: false,
+        reflect: true
+      }
+    },
+    favoriteTapped: function(event, detail, sender) {
+      this.favorite = !this.favorite;
+      this.fire('favorite-tap');
+    }
+  });
+  </script>
+</polymer-element>
