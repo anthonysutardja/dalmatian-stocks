@@ -11,6 +11,10 @@
       width: 100%;
     }
 
+    .hidden-field {
+      display: none;
+    }
+
     .stockListItem {
       display: block;
       padding: 20px 10px;
@@ -25,22 +29,29 @@
       -webkit-overflow-scrolling: touch; 
     }
 
-
     </style>
 
     <stock-service id="service" posts="{{stocks}}"></stock-service>
-    
       <div id="stockListDiv">
         <ul>
         <template repeat="{{stock in stocks}}">
-            <paper-button class="">{{stock.symbol}}</paper-button>
+            <paper-button class="" onclick="reload(this)">
+              <span class="hidden-field">{{stock.index}}</span>
+              {{stock.symbol}}
+            </paper-button>
         </template>
         </ul>
       </div>
   </template>
 
+
   <script>
-  Polymer({
-  });
+
+
+    Polymer({
+    });
   </script>
+
+
+
 </polymer-element>
