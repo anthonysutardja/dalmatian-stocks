@@ -78,61 +78,38 @@
     }
   });
 
-  var getChart = function(stockName) {
-      $.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename='+stockName.toLowerCase()+'-c.json&callback=?', function (data) {
-          // Create the chart
-         stockData = data; 
-          var dataObject = {
-              rangeSelector: {
-                  selected: 1,
-                  enabled: true,
-                  inputEnabled: $('#container').width() > 480,
-                  buttons: [{
-                    type: 'day',
-                    count: 1,
-                    text: '1d'
-                  }, {
-                    type: 'day',
-                    count: 5,
-                    text: '5d'
-                  }, {
-                    type: 'month',
-                    count: 1,
-                    text: '1m'
-                  }, {
-                    type: 'month',
-                    count: 3,
-                    text: '3m'
-                  }, {
-                    type: 'year',
-                    count: 1,
-                    text: '1y'
-                  }, {
-                    type: 'all',
-                    text: 'All'
-                  }]
-              },
-              series: [{
-                  name: stockName.toUpperCase(),
-                  data: data,
-                  tooltip: {
-                      valueDecimals: 2
-                  }
-              }],
-              chart: {
-                  renderTo: 'container',
-              }
-          };
-           var chart = new Highcharts.StockChart(dataObject);   
-      });
-    };
-
     $(document).ready(function() {
       var sym = 'AAPL';
       var dur = 3650;
       
       new Markit.InteractiveChartApi(sym, dur);
+
     });
+  </script>
+  <script>
+   calcGrowth = function(){
+      //console.log($(".highcharts-input-group").find($("tspan")).length);
+      var firstD = new Date($(".highcharts-input-group").find($("tspan"))[0].textContent);
+      var firstDate = Date.UTC(firstD.getFullYear(), firstD.getMonth(), firstD.getDate());
+
+      var lastD = new Date($(".highcharts-input-group").find($("tspan"))[1].textContent);
+      var lastDate = Date.UTC(lastD.getFullYear(), lastD.getMonth(), lastD.getDate());
+
+      var lastPrice;
+      var firstPrice;
+      var found = false;
+      for (var i = stockData.length - 1; i > 0; i--) {
+        if (stockData[i][0] <= lastDate && !found) {
+          lastPrice = stockData[i][1];
+          found = true;
+        }
+        if (stockData[i][0] <= firstDate) {
+          firstPrice = stockData[i][1];
+          break;
+        }
+      }
+      $(".growth").text(Math.round(1000 * (lastPrice - firstPrice)/firstPrice)/10 + "%");
+    };
   </script>
 
 </body>

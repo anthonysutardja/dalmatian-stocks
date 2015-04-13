@@ -35,6 +35,7 @@ Markit.InteractiveChartApi.prototype.PlotChart = function(){
                 return;
             }
             this.render(json);
+            calcGrowth();
         },
         error: function(response,txtStatus){
             console.log(response,txtStatus)
@@ -79,10 +80,10 @@ Markit.InteractiveChartApi.prototype._getOHLC = function(json) {
             var dat = this._fixDate( dates[i] );
             var pointData = [
                 dat,
-                elements[0].DataSeries['open'].values[i],
-                elements[0].DataSeries['high'].values[i],
-                elements[0].DataSeries['low'].values[i],
-                elements[0].DataSeries['close'].values[i]
+                Math.round(elements[0].DataSeries['open'].values[i]*100)/100,
+                Math.round(elements[0].DataSeries['high'].values[i]*100)/100,
+                Math.round(elements[0].DataSeries['low'].values[i]*100)/100,
+                Math.round(elements[0].DataSeries['close'].values[i]*100)/100
             ];
             chartSeries.push( pointData );
         };
@@ -110,25 +111,42 @@ Markit.InteractiveChartApi.prototype._getVolume = function(json) {
 };
 
 Markit.InteractiveChartApi.prototype.render = function(data) {
-    //console.log(data)
     // split the data set into ohlc and volume
-    var ohlc = this._getOHLC(data),
-        volume = this._getVolume(data);
-
-    // set the allowed units for data grouping
-    var groupingUnits = [[
-        'week',                         // unit name
-        [1]                             // allowed multiples
-    ], [
-        'month',
-        [1, 2, 3, 4, 6]
-    ]];
+    var ohlc = this._getOHLC(data);
+    stockData = ohlc;
 
     // create the chart
     var dataObject = {
         
         rangeSelector: {
-            selected: 1,
+            selected: 2,
+            buttonTheme: {
+                fill: 'none',
+                stroke: 'none',
+                'stroke-width': 0,
+                r: 8,
+                style: {
+                    color: '#4CAF50',
+                    fontWeight: 'bold'
+                },
+                states: {
+                    hover: {
+                    },
+                    select: {
+                        fill: '#4CAF50',
+                        style: {
+                            color: 'white'
+                        }
+                    }
+                }
+            },
+            inputBoxBorderColor: 'silver',
+            inputStyle: {
+               color: 'black'
+            },
+            labelStyle: {
+               color: 'silver'
+            },
             buttons: [{
               type: 'day',
               count: 1,
@@ -156,44 +174,24 @@ Markit.InteractiveChartApi.prototype.render = function(data) {
             enabled: true
         },
 
-        title: {
-            text: this.symbol + ' Historical Price'
-        },
-
         yAxis: [{
             title: {
-                text: 'OHLC'
+                text: 'Price ($)'
             },
             height: 200,
-            lineWidth: 2
-        }, {
-            title: {
-                text: 'Volume'
-            },
-            top: 300,
-            height: 100,
-            offset: 0,
             lineWidth: 2
         }],
         
         series: [{
             type: 'line',
             name: this.symbol,
-            data: ohlc,
-            dataGrouping: {
-                units: groupingUnits
-            }
-        }, {
-            type: 'column',
-            name: 'Volume',
-            data: volume,
-            yAxis: 1,
-            dataGrouping: {
-                units: groupingUnits
-            }
-        }],
+            data: ohlc
+        } ],
         chart: {
             renderTo: 'chartContainer'
+        },
+        credits: {
+          enabled: false
         }
     };
     var chart = new Highcharts.StockChart(dataObject);
