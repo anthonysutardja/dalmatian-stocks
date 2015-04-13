@@ -16,6 +16,9 @@
   <link rel="import" href="stock-list.html">
   <link rel="import" href="stock-card.html">
   <link rel="import" href="stock-card-earnings.html">
+  <script src="//code.highcharts.com/stock/highstock.js"></script>
+  <script type="text/javascript" src="js/purl.js"></script>
+  <script type="text/javascript" src="js/InteractiveChartApi.js"></script>
 
   <link rel="stylesheet" type="text/css" href="style.css">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -45,21 +48,20 @@
  </div>
  <div class="main">
   <stock-card>
-   <h2>GOOG</h2>
-   <img class="graph" src="test.png">
-   <p>StkSymbl</p>
-   <p class="growth">10%</p>
-   <p class="price">$500.00</p>
-   </stock-card>
+    <h2>GOOG</h2>
+    <p>StkSymbl</p>
+    <p class="growth">10%</p>
+    <p class="price">$500.00</p>
+    <div class="graph" id="chartContainer" style="height: 400px; min-width: 310px"></div>
+  </stock-card>
   <stock-card-earnings>
    <h2>Google, Inc</h2>
    <p class="lastEarnings">Jul 2</p>
    <p class="nextEarnings">Aug 2</p>
    </stock-card-earnings>
  </div>
+ 
   </core-header-panel>
-
-
 
   <script>
   var tabs = document.querySelector('paper-tabs');
@@ -76,8 +78,63 @@
     }
   });
 
+  var getChart = function(stockName) {
+      $.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename='+stockName.toLowerCase()+'-c.json&callback=?', function (data) {
+          // Create the chart
+         stockData = data; 
+          var dataObject = {
+              rangeSelector: {
+                  selected: 1,
+                  enabled: true,
+                  inputEnabled: $('#container').width() > 480,
+                  buttons: [{
+                    type: 'day',
+                    count: 1,
+                    text: '1d'
+                  }, {
+                    type: 'day',
+                    count: 5,
+                    text: '5d'
+                  }, {
+                    type: 'month',
+                    count: 1,
+                    text: '1m'
+                  }, {
+                    type: 'month',
+                    count: 3,
+                    text: '3m'
+                  }, {
+                    type: 'year',
+                    count: 1,
+                    text: '1y'
+                  }, {
+                    type: 'all',
+                    text: 'All'
+                  }]
+              },
+              series: [{
+                  name: stockName.toUpperCase(),
+                  data: data,
+                  tooltip: {
+                      valueDecimals: 2
+                  }
+              }],
+              chart: {
+                  renderTo: 'container',
+              }
+          };
+           var chart = new Highcharts.StockChart(dataObject);   
+      });
+    };
 
+    $(document).ready(function() {
+      var sym = 'AAPL';
+      var dur = 3650;
+      
+      new Markit.InteractiveChartApi(sym, dur);
+    });
   </script>
+
 </body>
 
 </html>

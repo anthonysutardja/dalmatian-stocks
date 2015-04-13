@@ -1,5 +1,6 @@
 <link rel="import" href="./bower_components/polymer/polymer.html">
 <link rel="import" href="./bower_components/core-icon-button/core-icon-button.html">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 
 <polymer-element name="stock-card">
   <template>
@@ -47,6 +48,7 @@
       font-size: 100px;
       opacity: .3;
       z-index: 10;
+      pointer-events: none;
       color: #4CAF50;
     }
     #price {
@@ -77,22 +79,23 @@
         <paper-tab name="1 year">1 Year</paper-tab>
       </paper-tabs>
       <div id="overlayContainer">
-      <div id="graph" align="center"><content select=".graph"></content></div>
+        <div id="graph" align="center"><content select=".graph"></div>
         <div id="growth" align="center"><content select=".growth"></div>
       </div>
   </template>
+
   <script>
-  Polymer({
-    publish: {
-      favorite: {
-        value: false,
-        reflect: true
+    Polymer({
+      publish: {
+        favorite: {
+          value: false,
+          reflect: true
+        }
+      },
+      favoriteTapped: function(event, detail, sender) {
+        this.favorite = !this.favorite;
+        this.fire('favorite-tap');
       }
-    },
-    favoriteTapped: function(event, detail, sender) {
-      this.favorite = !this.favorite;
-      this.fire('favorite-tap');
-    }
-  });
+    });
   </script>
 </polymer-element>
