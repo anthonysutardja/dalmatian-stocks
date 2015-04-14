@@ -11,11 +11,14 @@
   <link rel="import" href="./bower_components/font-roboto/roboto.html">
   <link rel="import" href="./bower_components/core-header-panel/core-header-panel.html">
   <link rel="import" href="./bower_components/core-toolbar/core-toolbar.html">
+  <link rel="import" href="./bower_components/core-signals/core-signals.html">
   <link rel="import" href="./bower_components/paper-tabs/paper-tabs.html">
   <link rel="import" href="./bower_components/paper-icon-button/paper-icon-button.html">
   <link rel="import" href="stock-list.html">
   <link rel="import" href="stock-card.html">
   <link rel="import" href="stock-card-earnings.html">
+  <link rel="import" href="stock-service.html">
+
   <script src="//code.highcharts.com/stock/highstock.js"></script>
   <script type="text/javascript" src="js/purl.js"></script>
   <script type="text/javascript" src="js/InteractiveChartApi.js"></script>
@@ -47,18 +50,11 @@
           <stock-list show="all"></stock-list>
  </div>
  <div class="main">
-  <stock-card>
-    <h2>GOOG</h2>
-    <p>StkSymbl</p>
-    <p class="growth">10%</p>
-    <p class="price">$500.00</p>
+
+  <stock-card symbol="GOOG" price="$500.00">
     <div class="graph" id="chartContainer" style="height: 400px; min-width: 310px"></div>
   </stock-card>
-  <stock-card-earnings>
-   <h2>Google, Inc</h2>
-   <p class="lastEarnings">Jul 2</p>
-   <p class="nextEarnings">Aug 2</p>
-   </stock-card-earnings>
+  <stock-card-earnings stockName="Google" lastEarnings="Jul 2" nextEarnings="Aug 2"></stock-card-earnings>
  </div>
  
   </core-header-panel>

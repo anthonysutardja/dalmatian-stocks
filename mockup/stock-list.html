@@ -28,7 +28,7 @@
     
       <div id="stockListDiv">
         <template repeat="{{stock in stocks}}">
-            <stock-ticker class="stockListItem" symbol="{{stock.symbol}}" price="{{stock.price}}" change="{{stock.change}}" ></stock-ticker>
+            <stock-ticker class="stockListItem" symbol="{{stock.symbol}}" price="{{stock.price}}" change="{{stock.change}}" name="{{stock.name}}" nextEarnings="{{stock.nextEarnings}}" lastEarnings="{{stock.lastEarnings}}"></stock-ticker>
         </template>
       </div>
   </template>

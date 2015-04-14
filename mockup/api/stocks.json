@@ -4,14 +4,18 @@
     "name": "Google",
     "symbol": "GOOG",
     "price": "$123.23",
-    "change": "-10%"
+    "change": "-10%",
+    "nextEarnings": "Jul 2",
+    "lastEarnings": "Jan 12"
   },
   {
     "uid": 2,
     "name": "Facebook",
     "symbol": "FB",
-    "price": "$123.23",
-    "change": "+10%"
+    "price": "$23.23",
+    "change": "+30%",
+    "nextEarnings": "Jul 12",
+    "lastEarnings": "Jan 2"
   },
   {
     "uid": 3,

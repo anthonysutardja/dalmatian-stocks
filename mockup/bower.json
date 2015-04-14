@@ -22,6 +22,8 @@
     "core-header-panel": "Polymer/core-header-panel#^0.5.0",
     "core-toolbar": "Polymer/core-toolbar#^0.5.0",
     "paper-tabs": "Polymer/paper-tabs#^0.5.0",
-    "core-ajax": "Polymer/core-ajax#^0.5.0"
+    "core-ajax": "Polymer/core-ajax#^0.5.0",
+    "core-icons": "Polymer/core-icons#~0.5.5",
+    "core-signals": "Polymer/core-signals#~0.5.5"
   }
 }

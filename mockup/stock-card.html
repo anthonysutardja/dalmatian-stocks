@@ -2,7 +2,7 @@
 <link rel="import" href="./bower_components/core-icon-button/core-icon-button.html">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 
-<polymer-element name="stock-card">
+<polymer-element name="stock-card" attributes="symbol price" >
   <template>
 
     <style>
@@ -18,18 +18,11 @@
     .card-header {
       margin-bottom: 10px;
     }
-    polyfill-next-selector { content: '.card-header h2'; }
-    .card-header ::content h2 {
-      margin: 0;
+    .card-header h2 {
+      margin: 0 20px;
       font-size: 1.8rem;
       font-weight: 300;
       color: #4CAF50;
-    }
-    polyfill-next-selector { content: '.card-header img'; }
-    .card-header ::content img {
-      width: 70px;
-      border-radius: 50%;
-      margin: 10px;
     }
     #overlayContainer {
       width: 100%;
@@ -64,12 +57,11 @@
       text-align:center;
     }
     </style>
+    <core-signals on-core-signal-stock-data="{{stockData}}"></core-signals>
 
     <div class="card-header" layout horizontal center>
-      <content id="symbol" select="h2"></content>
-      <div id="price" class="circle">
-        <content select=".price"></content>
-      </div>
+      <div id="price" class="circle">{{price}}</div>
+      <h2 id="symbol">{{symbol}}</h2>
     </div>
       <paper-tabs id="tabs" selected="all" self-end>
         <paper-tab name="1day">1 Day</paper-tab>
@@ -85,16 +77,12 @@
   </template>
 
   <script>
-    Polymer({
-      publish: {
-        favorite: {
-          value: false,
-          reflect: true
-        }
-      },
-      favoriteTapped: function(event, detail, sender) {
-        this.favorite = !this.favorite;
-        this.fire('favorite-tap');
+    Polymer('stock-card', {
+      symbol: "na",
+      price: "na",
+      stockData: function(e, detail, sender) {
+        this.symbol = detail.symbol;
+        this.price = detail.price;
       }
     });
   </script>
