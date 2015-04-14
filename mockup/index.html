@@ -110,6 +110,14 @@
       }
       $(".growth").text(Math.round(1000 * (lastPrice - firstPrice)/firstPrice)/10 + "%");
     };
+
+    addGrowthListener = function() {
+      console.log("hello");
+      $(".highcharts-series").change(function() {
+        console.log("changed");
+      });
+    };
+
   </script>
 
 </body>

@@ -36,6 +36,7 @@ Markit.InteractiveChartApi.prototype.PlotChart = function(){
             }
             this.render(json);
             calcGrowth();
+            addGrowthListener();
         },
         error: function(response,txtStatus){
             console.log(response,txtStatus)
