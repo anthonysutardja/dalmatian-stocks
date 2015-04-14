@@ -32,16 +32,23 @@
   {
     "uid": 5,
     "name": "Apple",
-    "symbol": "AAPL"
+    "symbol": "AAPL",
+    "nextEarnings": "Jul 12",
+    "lastEarnings": "Jan 2"
   },
   {
     "uid": 6,
     "name": "Microsoft",
-    "symbol": "MSFT"
+    "symbol": "MSFT",
+    "price": "$123.23"
   },
   {
     "uid": 7,
     "name": "Bank Of America",
-    "symbol": "BAC"
+    "symbol": "BAC",
+    "price": "$2.23",
+    "change": "-100%",
+    "nextEarnings": "Jul 22",
+    "lastEarnings": "Jan 2"
   }
 ]

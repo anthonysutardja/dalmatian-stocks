@@ -2,7 +2,7 @@
 <link rel="import" href="./bower_components/core-icon-button/core-icon-button.html">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 
-<polymer-element name="stock-card" attributes="symbol price" >
+<polymer-element name="stock-card" attributes="name price change" >
   <template>
 
     <style>
@@ -45,7 +45,6 @@
       color: #4CAF50;
     }
     #price {
-      background: #4CAF50;
       color: #fff;
     }
     .circle{
@@ -60,8 +59,8 @@
     <core-signals on-core-signal-stock-data="{{stockData}}"></core-signals>
 
     <div class="card-header" layout horizontal center>
-      <div id="price" class="circle">{{price}}</div>
-      <h2 id="symbol">{{symbol}}</h2>
+      <div id="price" class="circle" style="background-color: {{change | computeColor}}">{{price}}</div>
+      <h2 id="name">{{name}}</h2>
     </div>
       <paper-tabs id="tabs" selected="all" self-end>
         <paper-tab name="1day">1 Day</paper-tab>
@@ -78,12 +77,26 @@
 
   <script>
     Polymer('stock-card', {
-      symbol: "na",
+      name: "na",
       price: "na",
+      change: "na",
       stockData: function(e, detail, sender) {
-        this.symbol = detail.symbol;
+        this.name = detail.name;
         this.price = detail.price;
-      }
+        this.change = detail.change;
+      },
+      computeColor: {
+        toDOM: function(value) {
+            if (value.charAt(0) == '-') {
+              return "#F44336";
+            } else if (value.charAt(0) == '+') {
+              return "#4CAF50";
+            } else {
+              return "#afafaf";
+            }
+        }
+      },
+
     });
   </script>
 </polymer-element>

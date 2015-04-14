@@ -14,6 +14,13 @@ html, body {
 	width: 100%;
 	border-bottom: 1px solid #ccc;
 }
+#profilePic {
+  height: 44px;
+  width: 44px;
+  border-radius: 44px;
+  cursor: pointer;
+  overflow: hidden;
+}
 
 h1 {
 	padding: 20px 15px;

@@ -69,17 +69,17 @@
             if (value.charAt(0) == '-') {
               return "#F44336";
             } else if (value.charAt(0) == '+') {
-              return "#8BC34A";
+              return "#4CAF50";
             } else {
               return "#afafaf";
             }
         }
       },
       clickEvent: function() {
-        this.fire('core-signal', {name: "stock-data", data: {symbol: this.symbol, price: this.price, name:this.name, lastEarnings: this.lastEarnings, nextEarnings: this.nextEarnings}});
+        this.fire('core-signal', {name: "stock-data", data: {symbol: this.symbol, price: this.price, change: this.change, name:this.name, lastEarnings: this.lastEarnings, nextEarnings: this.nextEarnings}});
       }, 
       domReady: function() {
-        this.fire('core-signal', {name: "stock-data", data: {symbol: this.symbol, price: this.price, name:this.name, lastEarnings: this.lastEarnings, nextEarnings: this.nextEarnings}});
+        this.fire('core-signal', {name: "stock-data", data: {symbol: this.symbol, price: this.price, change: this.change, name:this.name, lastEarnings: this.lastEarnings, nextEarnings: this.nextEarnings}});
       }
     });
   </script>

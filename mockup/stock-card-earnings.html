@@ -1,7 +1,7 @@
 <link rel="import" href="./bower_components/polymer/polymer.html">
 <link rel="import" href="./bower_components/core-icon-button/core-icon-button.html">
 
-<polymer-element name="stock-card-earnings" attributes="name lastEarnings nextEarnings">
+<polymer-element name="stock-card-earnings" attributes="symbol lastEarnings nextEarnings">
   <template>
 
     <style>
@@ -39,12 +39,15 @@
       float: left;
       margin-left: 100px;
     }
+    #symbol {
+      margin-left: 5px;
+    }
     </style>
     <core-signals on-core-signal-stock-data="{{stockData}}"></core-signals>
 
     <div class="card-header" layout horizontal center>
       <h2>Earnings - </h2>
-      <h2 id="symbol">{{name}}</h2>
+      <h2 id="symbol">{{symbol}}</h2>
     </div>
     <div align="center">
       <div class="circle left">
@@ -57,11 +60,11 @@
   </template>
   <script>
     Polymer('stock-card-earnings', {
-      name: "na",
+      symbol: "na",
       lastEarnings: "N/A",
       nextEarnings: "N/A",
       stockData: function(e, detail, sender) {
-        this.name = detail.name;
+        this.symbol = detail.symbol;
         this.lastEarnings = detail.lastEarnings;
         this.nextEarnings = detail.nextEarnings;
       }
