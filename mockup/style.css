@@ -34,7 +34,12 @@ h2 {
 	letter-spacing: 3px;
 	text-transform: uppercase;
 }
-
+stock-list {
+  height: 100%;
+  overflow-y: scroll;
+  margin-bottom: 50px;
+  margin-left: 15px;
+}
 .links {
 	list-style: none;
 }
@@ -46,7 +51,6 @@ h2 {
 	border-top: 2px solid #fff;
 
 }
-
 .links .stockListItem {
 	display: block;
 	padding: 20px 10px;

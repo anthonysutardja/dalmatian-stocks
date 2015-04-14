@@ -1,6 +1,7 @@
 <link rel="import" href="./bower_components/polymer/polymer.html">
 <link rel="import" href="./bower_components/paper-button/paper-button.html">
 <link rel="import" href="./stock-service.html">
+<link rel="import" href="./stock-ticker.html">
 
 
 <polymer-element name="stock-list" attributes="show">
@@ -11,18 +12,13 @@
       width: 100%;
     }
 
-    .stockListItem {
-      display: block;
-      padding: 20px 10px;
-      border-top: 2px solid #fff;
-    }
-
     .stockListItem:hover {
-      background: #fafafa;
+      background: #ececec;
     }
     #stockListDiv {
-      overflow: auto;
+      overflow: hidden;
       -webkit-overflow-scrolling: touch; 
+      height: 1100px;
     }
 
 
@@ -31,16 +27,19 @@
     <stock-service id="service" posts="{{stocks}}"></stock-service>
     
       <div id="stockListDiv">
-        <ul>
         <template repeat="{{stock in stocks}}">
-            <paper-button class="">{{stock.symbol}}</paper-button>
+            <stock-ticker class="stockListItem" symbol="{{stock.symbol}}" price="{{stock.price}}" change="{{stock.change}}" name="{{stock.name}}" nextEarnings="{{stock.nextEarnings}}" lastEarnings="{{stock.lastEarnings}}"></stock-ticker>
         </template>
-        </ul>
       </div>
   </template>
 
   <script>
-  Polymer({
-  });
+  (function() {
+    Polymer({
+      ready: function() {
+      }
+
+    });
+  })();
   </script>
 </polymer-element>

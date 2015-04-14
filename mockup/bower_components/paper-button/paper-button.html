@@ -109,7 +109,8 @@ role="button">
       }
 
       .button-content {
-        padding: 0.7em 0.57em
+        padding: 0.7em 0.57em;
+        width: 100%;
       }
 
       polyfill-next-selector { content: '.button-content > a'; }
@@ -132,7 +133,7 @@ role="button">
     </template>
 
     <!-- this div is needed to position the ripple behind text content -->
-    <div class="button-content" relative layout horizontal center-center>
+    <div class="button-content" horizontal center-center>
       <content></content>
     </div>
 

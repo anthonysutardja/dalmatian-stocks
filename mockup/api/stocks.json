@@ -2,22 +2,32 @@
   {
     "uid": 1,
     "name": "Google",
-    "symbol": "GOOG"
+    "symbol": "GOOG",
+    "price": "$123.23",
+    "change": "-10%",
+    "nextEarnings": "Jul 2",
+    "lastEarnings": "Jan 12"
   },
   {
     "uid": 2,
     "name": "Facebook",
-    "symbol": "FB"
+    "symbol": "FB",
+    "price": "$23.23",
+    "change": "+30%",
+    "nextEarnings": "Jul 12",
+    "lastEarnings": "Jan 2"
   },
   {
     "uid": 3,
     "name": "Box",
-    "symbol": "BOX"
+    "symbol": "BOX",
+    "price": "$123.23"
   },
   {
     "uid": 4,
     "name": "Amazon",
-    "symbol": "AMZN"
+    "symbol": "AMZN",
+    "change": "+10%"
   },
   {
     "uid": 5,
@@ -28,5 +38,10 @@
     "uid": 6,
     "name": "Microsoft",
     "symbol": "MSFT"
+  },
+  {
+    "uid": 7,
+    "name": "Bank Of America",
+    "symbol": "BAC"
   }
 ]

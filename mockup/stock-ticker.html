@@ -1,0 +1,86 @@
+<link rel="import" href="./bower_components/polymer/polymer.html">
+<link rel="import" href="./bower_components/core-icon-button/core-icon-button.html">
+<link rel="import" href="./bower_components/core-signals/core-signals.html">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+<polymer-element name="stock-ticker" attributes="symbol price change name nextEarnings lastEarnings">
+  <template>
+
+    <style>
+    :host {
+      display: block;
+      position: relative;
+      background-color: #fff;
+      font-size: 1.2rem;
+      font-weight: 300;
+      margin: 10px;
+    }
+    .body {
+      padding: 0px 10px;
+      padding-right: 30px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between
+    }
+    paper-button {
+      width: 100%;
+      margin: 0px;
+    }
+    #symbol {
+      padding: 5px;
+    }
+    #price {
+      padding: 5px;
+      color: silver;
+      font-size: 12px;
+      align-self: center;
+    }
+    #change {
+      border-radius:100px;
+      padding: 5px;
+      color: #fff;
+      font-size: 12px;
+      align-self: center;
+    }
+    .rightAlign {
+      display:flex;
+      flex-direction: row;
+    }
+    </style>
+
+      <paper-button on-click="{{clickEvent}}">
+        <div class="body">
+          <p id="symbol">{{symbol}}</p>
+          <span class="rightAlign">
+            <p id="price">{{price}}</p>
+            <p id="change" style="background-color: {{change | computeColor}}">{{change}}</p>
+          </span>
+        </div>
+      </paper-button>
+  </template>
+
+  <script>
+    Polymer('stock-ticker', {
+      symbol: "na",
+      price: "na",
+      change: "~~~",
+      computeColor: {
+        toDOM: function(value) {
+            if (value.charAt(0) == '-') {
+              return "#F44336";
+            } else if (value.charAt(0) == '+') {
+              return "#8BC34A";
+            } else {
+              return "#afafaf";
+            }
+        }
+      },
+      clickEvent: function() {
+        this.fire('core-signal', {name: "stock-data", data: {symbol: this.symbol, price: this.price, name:this.name, lastEarnings: this.lastEarnings, nextEarnings: this.nextEarnings}});
+      }, 
+      domReady: function() {
+        this.fire('core-signal', {name: "stock-data", data: {symbol: this.symbol, price: this.price, name:this.name, lastEarnings: this.lastEarnings, nextEarnings: this.nextEarnings}});
+      }
+    });
+  </script>
+</polymer-element>

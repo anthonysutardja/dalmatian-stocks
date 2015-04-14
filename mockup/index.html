@@ -11,11 +11,17 @@
   <link rel="import" href="./bower_components/font-roboto/roboto.html">
   <link rel="import" href="./bower_components/core-header-panel/core-header-panel.html">
   <link rel="import" href="./bower_components/core-toolbar/core-toolbar.html">
+  <link rel="import" href="./bower_components/core-signals/core-signals.html">
   <link rel="import" href="./bower_components/paper-tabs/paper-tabs.html">
   <link rel="import" href="./bower_components/paper-icon-button/paper-icon-button.html">
   <link rel="import" href="stock-list.html">
   <link rel="import" href="stock-card.html">
   <link rel="import" href="stock-card-earnings.html">
+  <link rel="import" href="stock-service.html">
+
+  <script src="//code.highcharts.com/stock/highstock.js"></script>
+  <script type="text/javascript" src="js/purl.js"></script>
+  <script type="text/javascript" src="js/InteractiveChartApi.js"></script>
 
   <link rel="stylesheet" type="text/css" href="style.css">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -44,22 +50,14 @@
           <stock-list show="all"></stock-list>
  </div>
  <div class="main">
-  <stock-card>
-   <h2>GOOG</h2>
-   <img class="graph" src="test.png">
-   <p>StkSymbl</p>
-   <p class="growth">10%</p>
-   <p class="price">$500.00</p>
-   </stock-card>
-  <stock-card-earnings>
-   <h2>Google, Inc</h2>
-   <p class="lastEarnings">Jul 2</p>
-   <p class="nextEarnings">Aug 2</p>
-   </stock-card-earnings>
+
+  <stock-card symbol="GOOG" price="$500.00">
+    <div class="graph" id="chartContainer" style="height: 400px; min-width: 310px"></div>
+  </stock-card>
+  <stock-card-earnings stockName="Google" lastEarnings="Jul 2" nextEarnings="Aug 2"></stock-card-earnings>
  </div>
+ 
   </core-header-panel>
-
-
 
   <script>
   var tabs = document.querySelector('paper-tabs');
@@ -76,8 +74,48 @@
     }
   });
 
+    $(document).ready(function() {
+      var sym = 'AAPL';
+      var dur = 3650;
+      
+      new Markit.InteractiveChartApi(sym, dur);
+
+    });
+  </script>
+  <script>
+   calcGrowth = function(){
+      //console.log($(".highcharts-input-group").find($("tspan")).length);
+      var firstD = new Date($(".highcharts-input-group").find($("tspan"))[0].textContent);
+      var firstDate = Date.UTC(firstD.getFullYear(), firstD.getMonth(), firstD.getDate());
+
+      var lastD = new Date($(".highcharts-input-group").find($("tspan"))[1].textContent);
+      var lastDate = Date.UTC(lastD.getFullYear(), lastD.getMonth(), lastD.getDate());
+
+      var lastPrice;
+      var firstPrice;
+      var found = false;
+      for (var i = stockData.length - 1; i > 0; i--) {
+        if (stockData[i][0] <= lastDate && !found) {
+          lastPrice = stockData[i][1];
+          found = true;
+        }
+        if (stockData[i][0] <= firstDate) {
+          firstPrice = stockData[i][1];
+          break;
+        }
+      }
+      $(".growth").text(Math.round(1000 * (lastPrice - firstPrice)/firstPrice)/10 + "%");
+    };
+
+    addGrowthListener = function() {
+      console.log("hello");
+      $(".highcharts-series").change(function() {
+        console.log("changed");
+      });
+    };
 
   </script>
+
 </body>
 
 </html>
