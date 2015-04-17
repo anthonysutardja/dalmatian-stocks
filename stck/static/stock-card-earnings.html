@@ -1,0 +1,74 @@
+<link rel="import" href="./bower_components/polymer/polymer.html">
+<link rel="import" href="./bower_components/core-icon-button/core-icon-button.html">
+<meta name="author" content="Andrew Fang">
+
+<polymer-element name="stock-card-earnings" attributes="symbol lastEarnings nextEarnings">
+  <template>
+
+    <style>
+    :host {
+      display: block;
+      position: relative;
+      background-color: #fff;
+      padding: 20px;
+      width: 95%;
+      height: 230px;
+      font-size: 1.2rem;
+      font-weight: 300;
+    }
+    .card-header {
+      margin-bottom: 10px;
+    }
+    h2 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: #4CAF50;
+    }
+    .circle{
+      display: inline-text;
+      background: #4CAF50;
+      color: #fff;
+      width:150px;
+      height:150px;
+      border-radius:100px;
+      font-size:25px;
+      line-height:150px;
+      text-align:center;
+    }
+    .left, .right {
+      float: left;
+      margin-left: 100px;
+    }
+    #symbol {
+      margin-left: 5px;
+    }
+    </style>
+    <core-signals on-core-signal-stock-data="{{stockData}}"></core-signals>
+
+    <div class="card-header" layout horizontal center>
+      <h2>Earnings - </h2>
+      <h2 id="symbol">{{symbol}}</h2>
+    </div>
+    <div align="center">
+      <div class="circle left">
+        {{lastEarnings}}
+      </div>
+      <div class="circle right">
+        {{nextEarnings}}
+      </div>
+    </div>
+  </template>
+  <script>
+    Polymer('stock-card-earnings', {
+      symbol: "na",
+      lastEarnings: "N/A",
+      nextEarnings: "N/A",
+      stockData: function(e, detail, sender) {
+        this.symbol = detail.symbol;
+        this.lastEarnings = detail.lastEarnings;
+        this.nextEarnings = detail.nextEarnings;
+      }
+    });
+  </script>
+</polymer-element>

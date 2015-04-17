@@ -1,0 +1,32 @@
+<link rel="import" href="./bower_components/polymer/polymer.html">
+<link rel="import" href="./bower_components/core-ajax/core-ajax.html">
+<meta name="author" content="Andrew Fang">
+
+<polymer-element name="stock-service" attributes="posts stockList">
+  <template>
+    <style>
+    :host {
+      display: none;
+    }
+    </style>
+    <core-ajax id="ajax"
+      auto
+      url="http://localhost:5000/api/stock/{{stockList}}/general-info"
+      on-core-response="{{postsLoaded}}"
+      handleAs="json">
+    </core-ajax>
+  </template>
+  <script>
+  Polymer('stock-service', {
+    created: function() {
+      this.posts = [];
+      this.stockList = ['AAPL']
+    },
+    postsLoaded: function() {
+      // Make a copy of the loaded data
+      this.posts = this.$.ajax.response;
+      console.log(this.posts.results);
+    },
+  });
+  </script>
+</polymer-element>

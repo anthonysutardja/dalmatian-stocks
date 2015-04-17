@@ -1,0 +1,103 @@
+<link rel="import" href="./bower_components/polymer/polymer.html">
+<link rel="import" href="./bower_components/core-icon-button/core-icon-button.html">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<meta name="author" content="Andrew Fang">
+
+<polymer-element name="stock-card" attributes="name price change" >
+  <template>
+
+    <style>
+    :host {
+      display: block;
+      position: relative;
+      background-color: #fff;
+      padding: 20px;
+      width: 95%;
+      font-size: 1.2rem;
+      font-weight: 300;
+    }
+    .card-header {
+      margin-bottom: 10px;
+    }
+    .card-header h2 {
+      margin: 0 20px;
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: #4CAF50;
+    }
+    #overlayContainer {
+      width: 100%;
+      height: 440px;
+      position: relative;
+    }
+    #graph, #growth {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    #growth {
+      padding-top: 12%;
+      font-size: 100px;
+      opacity: .3;
+      z-index: 10;
+      pointer-events: none;
+      color: #4CAF50;
+    }
+    #price {
+      color: #fff;
+    }
+    .circle{
+      width:100px;
+      height:100px;
+      border-radius:50px;
+      font-size:20px;
+      line-height:100px;
+      text-align:center;
+    }
+    </style>
+    <core-signals on-core-signal-stock-data="{{stockData}}"></core-signals>
+
+    <div class="card-header" layout horizontal center>
+      <div id="price" class="circle" style="background-color: {{change | computeColor}}">{{price}}</div>
+      <h2 id="name">{{name}}</h2>
+    </div>
+      <paper-tabs id="tabs" selected="all" self-end>
+        <paper-tab name="1day">1 Day</paper-tab>
+        <paper-tab name="5day">5 Day</paper-tab>
+        <paper-tab name="1month">1 Month</paper-tab>
+        <paper-tab name="3month">3 Month</paper-tab>
+        <paper-tab name="1 year">1 Year</paper-tab>
+      </paper-tabs>
+      <div id="overlayContainer">
+        <div id="graph" align="center"><content select=".graph"></div>
+        <div id="growth" align="center"><content select=".growth"></div>
+      </div>
+  </template>
+
+  <script>
+    Polymer('stock-card', {
+      name: "Loading...",
+      price: "na",
+      change: "na",
+      stockData: function(e, detail, sender) {
+        this.name = detail.name;
+        this.price = detail.price;
+        this.change = detail.change;
+      },
+      computeColor: {
+        toDOM: function(value) {
+            if (value.charAt(0) == '-') {
+              return "#F44336";
+            } else if (value.charAt(0) == '+') {
+              return "#4CAF50";
+            } else {
+              return "#afafaf";
+            }
+        }
+      },
+
+    });
+  </script>
+</polymer-element>
