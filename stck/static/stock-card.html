@@ -1,6 +1,7 @@
 <link rel="import" href="./bower_components/polymer/polymer.html">
 <link rel="import" href="./bower_components/core-icon-button/core-icon-button.html">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<meta name="author" content="Andrew Fang">
 
 <polymer-element name="stock-card" attributes="name price change" >
   <template>
@@ -77,7 +78,7 @@
 
   <script>
     Polymer('stock-card', {
-      name: "na",
+      name: "Loading...",
       price: "na",
       change: "na",
       stockData: function(e, detail, sender) {

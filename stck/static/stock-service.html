@@ -1,6 +1,8 @@
 <link rel="import" href="./bower_components/polymer/polymer.html">
 <link rel="import" href="./bower_components/core-ajax/core-ajax.html">
-<polymer-element name="stock-service" attributes="posts">
+<meta name="author" content="Andrew Fang">
+
+<polymer-element name="stock-service" attributes="posts stockList">
   <template>
     <style>
     :host {
@@ -9,7 +11,7 @@
     </style>
     <core-ajax id="ajax"
       auto
-      url="./api/stocks.json"
+      url="http://localhost:5000/api/stock/{{stockList}}/general-info"
       on-core-response="{{postsLoaded}}"
       handleAs="json">
     </core-ajax>
@@ -18,10 +20,12 @@
   Polymer('stock-service', {
     created: function() {
       this.posts = [];
+      this.stockList = ['AAPL']
     },
     postsLoaded: function() {
       // Make a copy of the loaded data
-      this.posts = this.$.ajax.response.slice(0);
+      this.posts = this.$.ajax.response;
+      console.log(this.posts.results);
     },
   });
   </script>

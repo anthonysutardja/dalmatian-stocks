@@ -2,6 +2,7 @@
 <link rel="import" href="./bower_components/paper-button/paper-button.html">
 <link rel="import" href="./stock-service.html">
 <link rel="import" href="./stock-ticker.html">
+<meta name="author" content="Andrew Fang">
 
 
 <polymer-element name="stock-list" attributes="show">
@@ -24,21 +25,29 @@
 
     </style>
 
-    <stock-service id="service" posts="{{stocks}}"></stock-service>
+    <stock-service id="service" posts="{{stocks}}" stockList="{{stockList}}"></stock-service>
     
       <div id="stockListDiv">
-        <template repeat="{{stock in stocks}}">
-            <stock-ticker class="stockListItem" symbol="{{stock.symbol}}" price="{{stock.price}}" change="{{stock.change}}" name="{{stock.name}}" nextEarnings="{{stock.nextEarnings}}" lastEarnings="{{stock.lastEarnings}}"></stock-ticker>
+        <template repeat="{{stock in stocks.results}}">
+            <stock-ticker class="stockListItem" symbol="{{stock.symbol}}" price="{{stock.price | makeMoney}}" change="{{stock.change}}" name="{{stock.symbol}}" nextEarnings="{{stock.nextEarnings | formatDate}}" lastEarnings="{{stock.lastEarnings |formatDate}}"></stock-ticker>
         </template>
       </div>
   </template>
 
   <script>
   (function() {
-    Polymer({
+    Polymer('stock-list', {
       ready: function() {
+        this.stockList = ['AAPL', 'GOOG', 'BOX', 'DIS'];
+      },
+      makeMoney: function(number) {
+        return '$' + Math.floor(number*100)/100;
+      },
+      formatDate: function(d) {
+        var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]; 
+        var dateRaw = new Date(d);
+        return monthNames[dateRaw.getMonth()] + ' ' + dateRaw.getDate();
       }
-
     });
   })();
   </script>
