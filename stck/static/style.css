@@ -1,0 +1,116 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400);
+html, body {
+  height: 100%;
+  background: #f7f7f7;
+}
+* {
+	margin: 0;
+	padding: 0;
+	font-family: 'Lato', sans-serif;
+	font-weight: 300;
+}
+
+.header {
+	width: 100%;
+	border-bottom: 1px solid #ccc;
+}
+#profilePic {
+  height: 44px;
+  width: 44px;
+  border-radius: 44px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+h1 {
+	padding: 20px 15px;
+}
+
+.nav {
+	position: fixed;
+	height: 100%;
+	width: 300px;
+	background: #f7f7f7;
+}
+
+h2 {
+	margin-top: 20px;
+	margin-bottom: 10px;
+	padding: 10px;
+	font-size: 20px;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+}
+stock-list {
+  height: 100%;
+  overflow-y: scroll;
+  margin-bottom: 50px;
+  margin-left: 15px;
+}
+.links {
+	list-style: none;
+}
+
+.links:first-child {
+}
+
+.links .stockListItem:first-child {
+	border-top: 2px solid #fff;
+
+}
+.links .stockListItem {
+	display: block;
+	padding: 20px 10px;
+	border-bottom: 2px solid #fff;
+}
+
+.links .stockListItem:hover {
+	background: #fafafa;
+}
+.main {
+  margin-left: 300px;
+  padding: 30px;
+}
+.content-container {
+	padding-top: 50px;
+	padding-left: 350px;
+	display: block;
+	overflow: scroll;
+	position: absolute;
+}
+core-header-panel {
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch; 
+}
+core-toolbar {
+  background: #4CAF50;
+  color: white;
+}
+#tabs {
+  width: 100%;
+  margin: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+text-transform: uppercase;
+}
+.container {
+  width: 80%;
+  margin: 50px auto;
+}
+stock-card, stock-card-earnings {
+  margin: 10px 30px 30px -10px;
+  padding-top: 30px;
+  padding-left: 30px;
+}
+@media (min-width: 481px) {
+  #tabs {
+    width: 200px;
+  }
+  .container {
+    width: 400px;
+  }
+}
+
