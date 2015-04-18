@@ -2,7 +2,7 @@
 <link rel="import" href="./bower_components/core-ajax/core-ajax.html">
 <meta name="author" content="Andrew Fang">
 
-<polymer-element name="stock-service" attributes="posts stockList">
+<polymer-element name="stock-service" attributes="posts">
   <template>
     <style>
     :host {
@@ -27,6 +27,11 @@
       this.posts = this.$.ajax.response;
       console.log(this.posts.results);
     },
+    updateStocks: function(stocks) {
+      this.stockList = stocks;
+      console.log(this.stockList);
+      this.shadowRoot.querySelector("core-ajax").url=this.stockList.toString();
+    }
   });
   </script>
 </polymer-element>

@@ -41,9 +41,27 @@ var data = [{
     "sale": "176",
     "year": "2010"
 }];
+    var getMinVal = function(dataset, key) {
+      var minVal = Math.min();
+      for (idx in dataset) {
+        if (dataset[idx][key] < minVal) {
+          minVal = dataset[idx][key];
+        }
+      }
+      return minVal;
+    };
+    var getMaxVal = function(dataset, key) {
+      var maxVal = Math.max();
+      for (idx in dataset) {
+        if (dataset[idx][key] > maxVal) {
+          maxVal = dataset[idx][key];
+        }
+      }
+      return maxVal;
+    };
 
-      var width = 600;
-      var height = 350;
+      var width = 650;
+      var height = 400;
       var margins = {
           top: 20,
           right: 20,
@@ -54,7 +72,7 @@ var data = [{
                    .attr('height', height)
                    .attr('width', width);
 
-      xScale = d3.scale.linear().range([margins.left, width - margins.right]).domain([2000,2010]);
+      xScale = d3.scale.linear().range([margins.left, width - margins.right]).domain([getMinVal(data, 'year'),getMaxVal(data, 'year')]);
 
       yScale = d3.scale.linear().range([height - margins.top, margins.bottom]).domain([134,215]);
 
