@@ -21,16 +21,31 @@
       -webkit-overflow-scrolling: touch; 
       height: 1100px;
     }
-
-
+    .buttonBody {
+      padding: 0px 10px;
+      padding-right: 30px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+    #addButton {
+      background-color: #fff;
+      width: 93%;
+      margin: 10px;
+      font-size: 1.2rem;
+      font-weight: 300;
+    }
     </style>
 
-    <stock-service id="service" posts="{{stocks}}" stockList="{{stockList}}"></stock-service>
+    <stock-service id="service" posts="{{stocks}}"></stock-service>
     
       <div id="stockListDiv">
         <template repeat="{{stock in stocks.results}}">
             <stock-ticker class="stockListItem" symbol="{{stock.symbol}}" price="{{stock.price | makeMoney}}" change="{{stock.change}}" name="{{stock.symbol}}" nextEarnings="{{stock.nextEarnings | formatDate}}" lastEarnings="{{stock.lastEarnings |formatDate}}"></stock-ticker>
         </template>
+        <paper-button id="addButton" on-click={{addStock}}">
+          <div class="buttonBody">+</div>
+        </paper-button>
       </div>
   </template>
 
@@ -38,7 +53,9 @@
   (function() {
     Polymer('stock-list', {
       ready: function() {
-        this.stockList = ['AAPL', 'GOOG', 'BOX', 'DIS'];
+        this.stockList = ['AAPL', 'GOOG', 'BOX'];
+        this.service = this.shadowRoot.querySelector('stock-service');
+        this.service.updateStocks(this.stockList);
       },
       makeMoney: function(number) {
         return '$' + Math.floor(number*100)/100;
@@ -47,6 +64,14 @@
         var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]; 
         var dateRaw = new Date(d);
         return monthNames[dateRaw.getMonth()] + ' ' + dateRaw.getDate();
+      },
+      addStock: function() {
+        var stock = prompt("Please enter a stock ticker symbol", "GOOG");
+        //add some verification here, make sure stock is actually a stock
+        if (this.stockList.indexOf(stock) == -1) {
+          this.stockList.push(stock);
+          this.service.updateStocks(this.stockList);
+        }
       }
     });
   })();
