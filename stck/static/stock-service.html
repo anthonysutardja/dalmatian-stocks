@@ -25,11 +25,9 @@
     postsLoaded: function() {
       // Make a copy of the loaded data
       this.posts = this.$.ajax.response;
-      console.log(this.posts.results);
     },
     updateStocks: function(stocks) {
       this.stockList = stocks;
-      console.log(this.stockList);
       this.shadowRoot.querySelector("core-ajax").url=this.stockList.toString();
     }
   });

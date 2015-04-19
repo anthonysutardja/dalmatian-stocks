@@ -5,7 +5,7 @@
 <meta name="author" content="Andrew Fang">
 
 
-<polymer-element name="stock-list" attributes="show">
+<polymer-element name="stock-list">
   <template>
     <style>
     :host {
@@ -50,9 +50,9 @@
   </template>
 
   <script>
-  (function() {
     Polymer('stock-list', {
       ready: function() {
+        console.log(this.stocks);
         this.stockList = ['AAPL', 'GOOG', 'BOX'];
         this.service = this.shadowRoot.querySelector('stock-service');
         this.service.updateStocks(this.stockList);
@@ -74,6 +74,5 @@
         }
       }
     });
-  })();
   </script>
 </polymer-element>

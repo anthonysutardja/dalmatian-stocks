@@ -16,11 +16,12 @@
   <link rel="import" href="../static/bower_components/core-signals/core-signals.html">
   <link rel="import" href="../static/bower_components/paper-tabs/paper-tabs.html">
   <link rel="import" href="../static/bower_components/paper-icon-button/paper-icon-button.html">
+  <link rel="import" href="../static/stock-service.html">
+  <link rel="import" href="../static/stock-price-service.html">
   <link rel="import" href="../static/stock-list.html">
+  <link rel="import" href="../static/stock-chart.html">
   <link rel="import" href="../static/stock-card.html">
   <link rel="import" href="../static/stock-card-earnings.html">
-  <link rel="import" href="../static/stock-service.html">
-  <link rel="import" href="../static/stock-chart.html">
   <link rel="stylesheet" type="text/css" href="../static/style.css">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
@@ -44,11 +45,7 @@
  </div>
  <div class="main">
 
-  <stock-card symbol="Loading..." price="$" change="+10%">
-    <!--<div class="graph" id="chartContainer" style="height: 400px; min-width: 310px"></div>-->
-    <stock-chart class="graph"></stock-chart>
-
-  </stock-card>
+  <stock-card symbol="Loading..." price="$" change="+10%"></stock-card>
   <stock-card-earnings stockName="Google" lastEarnings="--" nextEarnings="--"></stock-card-earnings>
  </div>
  

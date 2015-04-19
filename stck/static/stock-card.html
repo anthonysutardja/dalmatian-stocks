@@ -58,6 +58,8 @@
     }
     </style>
     <core-signals on-core-signal-stock-data="{{stockData}}"></core-signals>
+    <stock-price-service id="service" dataOut="{{data}}"></stock-price-service>
+
 
     <div class="card-header" layout horizontal center>
       <div id="price" class="circle" style="background-color: {{change | computeColor}}">{{price}}</div>
@@ -71,7 +73,9 @@
         <paper-tab name="1 year">1 Year</paper-tab>
       </paper-tabs>
       <div id="overlayContainer">
-        <div id="graph" align="center"><content select=".graph"></div>
+      <template bind="{{data}}">
+        <stock-chart class="graph" data1d="{{data1d}}" data5d="{{data5d}}" testa="{{test}}"></stock-chart>
+      </template>
         <div id="growth" align="center"><content select=".growth"></div>
       </div>
   </template>
