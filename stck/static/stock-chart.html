@@ -68,8 +68,8 @@
 
         nv.addGraph(function() {
             self.chart = nv.models.lineChart()
-                .x(function(d) { return d[0] })
-                .y(function(d) { return d[1]/100 })
+                .x(function(d) { return d.time})
+                .y(function(d) { return d.quote })
                 .options({
                     transitionDuration: 300,
                     useInteractiveGuideline: true
