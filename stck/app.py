@@ -53,14 +53,12 @@ def get_general_stock_info_individual(symbol, period):
     return jsonify(**data)
 
 
-@app.route('/api/stock/<symbol>/data/period/<period>')
-def get_symbol_data(symbol, period):
-    data = get_time_series_from_yahoo(symbol, period)
-    return jsonify(
-        symbol=symbol,
-        period=period,
-        data=data,
-    )
+@app.route('/api/stock/<symbol>/data')
+def get_symbol_data(symbol):
+    data = {'symbol': symbol}
+    for period in ('1d', '5d', '90d', '3m', '1y'):
+        data[period] = get_time_series_from_yahoo(symbol, period)
+    return jsonify(**data)
 
 
 if __name__ == '__main__':
