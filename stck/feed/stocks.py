@@ -49,6 +49,45 @@ def get_quote_from_google(symbol):
     return current, high, low
 
 
+def get_change_from_google(symbol):
+    """Return da change."""
+
+    base_url = "www.google.com"
+    query_path = "/finance/getprices?i=86400&p=2d&f=d,c&df=cpct&q="
+
+    # Query must contain symbols in capital letters
+    symbol = validate_stock_symbol(symbol)
+
+    # Make request
+    conn = httplib.HTTPConnection(base_url)
+    conn.request("GET", query_path + symbol)
+    response = conn.getresponse().read().rsplit()
+
+    # Check if symbol was valid.
+    # strips away 'EXCHANGE%3D' from first line of response
+    checkQuote = str(response[0][11:])
+    if (checkQuote == 'UNKNOWN+EXCHANGE'):
+        raise ValueError("Symbol is not listed.")
+
+    # Return last quote
+    twoDaysBefore = response[-2].split(",")
+    old = float(twoDaysBefore[1])
+
+    oneDayBefore = response[-1].split(",")
+    current = float(oneDayBefore[1])
+    return (current - old) / old * 100.0
+
+
+def get_formatted_change(symbol):
+    change = get_change_from_google(symbol)
+
+    if change > 0.0:
+        sign = '+'
+    else:
+        sign = ''
+    return '{sign}{change:.2f}%'.format(sign=sign, change=change)
+
+
 def get_quote_from_yahoo(symbol):
     """Return a tuple containing market quote information for a symbol.
 
