@@ -11,7 +11,7 @@
     </style>
     <core-ajax id="ajax"
       auto
-      url="/api/stocks/{{stockName}}/data/period"
+      url="/api/stock/{{stockName}}/data"
       on-core-response="{{dataLoaded}}"
       handleAs="json">
     </core-ajax>
@@ -19,19 +19,19 @@
   <script>
   Polymer('stock-price-service', {
     created: function() {
-      this.data5d = [ { "quote": 128.36, "time": "2015-04-13T09:34:59Z" }, { "quote": 127.84, "time": "2015-04-13T09:39:59Z" }, { "quote": 128.1199, "time": "2015-04-13T09:44:59Z" }, { "quote": 128.26, "time": "2015-04-13T09:49:00Z" }, { "quote": 128.14, "time": "2015-04-13T09:54:01Z" }, { "quote": 128.06, "time": "2015-04-13T09:59:01Z" }, { "quote": 127.97, "time": "2015-04-13T10:04:59Z" }, { "quote": 128.09, "time": "2015-04-13T10:09:00Z" }, { "quote": 128.1364, "time": "2015-04-13T10:14:57Z" }, { "quote": 128.0636, "time": "2015-04-13T10:19:00Z" }, { "quote": 128.13, "time": "2015-04-13T10:24:00Z" }, { "quote": 128.065, "time": "2015-04-13T10:29:59Z" }, { "quote": 128.0936, "time": "2015-04-13T10:34:58Z" }, { "quote": 128.07, "time": "2015-04-13T10:39:59Z" }, { "quote": 127.93, "time": "2015-04-13T10:44:59Z" }, { "quote": 127.945, "time": "2015-04-13T10:49:01Z" }, { "quote": 127.89, "time": "2015-04-13T10:54:00Z" }, { "quote": 127.87, "time": "2015-04-13T10:59:05Z" }, { "quote": 127.9869, "time": "2015-04-13T11:04:59Z" }, { "quote": 128.0062, "time": "2015-04-13T11:09:00Z" }, { "quote": 128.0538, "time": "2015-04-13T11:14:57Z" }, { "quote": 127.9566, "time": "2015-04-13T11:19:00Z" }, { "quote": 127.91, "time": "2015-04-13T11:24:59Z" }, { "quote": 127.47, "time": "2015-04-13T11:29:59Z" }, { "quote": 127.56, "time": "2015-04-13T11:34:59Z" }, { "quote": 127.52, "time": "2015-04-13T11:39:58Z" }, { "quote": 127.32, "time": "2015-04-13T11:44:00Z" }, { "quote": 127.489, "time": "2015-04-13T11:49:02Z" }, { "quote": 127.26, "time": "2015-04-13T11:54:05Z" }, { "quote": 127.45, "time": "2015-04-13T11:59:00Z" } ]
+      this.data1d = [];
+      this.data5d = [];
       this.data1m = [];
       this.data3m = [];
       this.data1y = [];
-      this.dataOut = {"data1d":this.data1d, "data5d":this.data5d, "data1m":this.data1m, "data3m":this.data3m, "data1y":this.data1y, "test":"hello"};
+      this.dataout = [];
       this.stockName = 'AAPL';
     },
     dataLoaded: function() {
       // Make a copy of the loaded data
-      // this.ignore= this.$.ajax.response;
-      this.dataOut = {"data1d":this.data1d, "data5d":this.data5d, "data1m":this.data1m, "data3m":this.data3m, "data1y":this.data1y, "test":"hello"};
+      this.dataOut= this.$.ajax.response;
     },
-    updateStockName: function(stockName) {
+    updateStock: function(stockName) {
       this.stockName = stockName;
       this.shadowRoot.querySelector("core-ajax").url=this.stockName;
     }

@@ -1,5 +1,6 @@
 <link rel="import" href="./bower_components/polymer/polymer.html">
 <link rel="import" href="./bower_components/core-icon-button/core-icon-button.html">
+<link rel="import" href="./bower_components/core-signals/core-signals.html">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <meta name="author" content="Andrew Fang">
 
@@ -56,6 +57,9 @@
       line-height:100px;
       text-align:center;
     }
+    paper-tabs.pink::shadow #selectionBar {
+        background-color: #ff4081;
+    }
     </style>
     <core-signals on-core-signal-stock-data="{{stockData}}"></core-signals>
     <stock-price-service id="service" dataOut="{{data}}"></stock-price-service>
@@ -65,16 +69,15 @@
       <div id="price" class="circle" style="background-color: {{change | computeColor}}">{{price}}</div>
       <h2 id="name">{{name}}</h2>
     </div>
-      <paper-tabs id="tabs" selected="all" self-end>
-        <paper-tab name="1day">1 Day</paper-tab>
-        <paper-tab name="5day">5 Day</paper-tab>
-        <paper-tab name="1month">1 Month</paper-tab>
-        <paper-tab name="3month">3 Month</paper-tab>
-        <paper-tab name="1 year">1 Year</paper-tab>
+    <paper-tabs id="tabs" selected="1d" self-end>
+        <paper-tab name="1d">1 Day</paper-tab>
+        <paper-tab name="5d">5 Day</paper-tab>
+        <paper-tab name="3m">3 Month</paper-tab>
+        <paper-tab name="1y">1 Year</paper-tab>
       </paper-tabs>
       <div id="overlayContainer">
-      <template bind="{{data}}">
-        <stock-chart class="graph" data1d="{{data1d}}" data5d="{{data5d}}" testa="{{test}}"></stock-chart>
+      <template bind="{{data as d}}">
+      <stock-chart class="graph" stockName='{{name}}' timeRange='{{tabSelected}}' data1d="{{d['1d']}}" data5d="{{d['5d']}}" data1m="{{d['90d']}}" data3m="{{d['3m']}}" data1y="{{d['1y']}}"></stock-chart>
       </template>
         <div id="growth" align="center"><content select=".growth"></div>
       </div>
@@ -82,6 +85,15 @@
 
   <script>
     Polymer('stock-card', {
+      ready: function() {
+        this.service = this.shadowRoot.querySelector('stock-price-service');
+        var tabs = this.shadowRoot.querySelector('paper-tabs');
+        tabs.addEventListener('core-select', function(e) {
+          if (e.detail.isSelected) {
+            this.fire('core-signal', {name:"time-switch", data: {time: tabs.selected}});
+          }
+        });
+      },
       name: "Loading...",
       price: "na",
       change: "na",
@@ -89,6 +101,13 @@
         this.name = detail.name;
         this.price = detail.price;
         this.change = detail.change;
+        this.service.updateStock(this.name);
+      },
+      timeRange: {
+          toDOM: function(value) {
+            var map = {0: '1d', 1: '5d', 2: '3m', 3: '1y'};
+            return map[value];
+            }
       },
       computeColor: {
         toDOM: function(value) {
@@ -100,7 +119,7 @@
               return "#afafaf";
             }
         }
-      },
+      }
 
     });
   </script>

@@ -52,7 +52,6 @@
   <script>
     Polymer('stock-list', {
       ready: function() {
-        console.log(this.stocks);
         this.stockList = ['AAPL', 'GOOG', 'BOX'];
         this.service = this.shadowRoot.querySelector('stock-service');
         this.service.updateStocks(this.stockList);

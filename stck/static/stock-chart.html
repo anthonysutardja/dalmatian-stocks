@@ -7,8 +7,9 @@
 
 
 
-<polymer-element name="stock-chart" attributes="data1d data5d data1m data3m data1y testa">
+<polymer-element name="stock-chart" attributes="stockName data1d data5d data1m data3m data1y">
 <template>
+  <core-signals on-core-signal-time-switch="{{calcTime}}"></core-signals>
   <!-- Shadow CSS -->
   <style>
       text {
@@ -51,7 +52,7 @@
 <script>
   Polymer("stock-chart", {
       ready: function() {
-        console.log(this.data5d);
+        this.timeRange = '1d';
       },
       data1d: [],
       data5d: [],
@@ -59,53 +60,71 @@
       data3m: [],
       data1y: [],
       domReady: function() {
-        this.chart;
+        var chart;
+        this.svg = "";
         this.chartsvg = d3.select(this.$.chartsvg);
         this.createChart();
+        this.first = true;
       },
       createChart: function() {
         var self = this;
 
         nv.addGraph(function() {
-            self.chart = nv.models.lineChart()
-                .x(function(d) { return d.time})
+            chart = nv.models.lineChart()
+                .x(function(d) { return new Date(d.time)})
                 .y(function(d) { return d.quote })
                 .options({
                     transitionDuration: 300,
                     useInteractiveGuideline: true
                 });
 
-            self.chart.xAxis
+            chart.xAxis
                .axisLabel("Date")
               .tickValues([1078030800000,1122782400000,1167541200000,1251691200000])
               .tickFormat(function(d) {
                   return d3.time.format('%x')(new Date(d))
                 });
 
-            self.chart.yAxis
+            chart.yAxis
                 .axisLabel('Price ($)')
                 .tickFormat(d3.format(',.2f'));
 
-            svg = self.chartsvg.append('svg')
-                .datum(formatVal())
-                .call(self.chart);
+            if (self.first) {
+              self.svg = self.chartsvg.append('svg');
+            }
 
-            nv.utils.windowResize(self.chart.update);
+            self.svg.datum(self.getData())
+            .call(chart);
 
-            return self.chart;
+            nv.utils.windowResize(chart.update);
+
+            return chart;
         });
-
-        function formatVal() {
-            return [
-                {
-                    area: false,
-                    values: self.data5d,
-                    key: "AAPL",
-                    color: "#616161"
-                }
-            ];
+    },
+    getData: function() {
+      var timeMap = {'1d': this.data1d, '5d': this.data5d, '1m': this.data1m, '3m': this.data3m, '1y': this.data1y};
+      var dataInUse = timeMap[this.timeRange];
+      var graphColor = "#616161";
+      if (dataInUse != null && dataInUse.length > 0) {
+        if (dataInUse[dataInUse.length-1].quote - dataInUse[0].quote < 0)
+          graphColor = "#F44336";
+        else {
+          graphColor = "#4CAF50";
         }
+      }
+      return [{
+        area: false,
+        values: dataInUse,
+        key: this.stockName,
+        color: graphColor
+      }];
+    },
+    calcTime: function(e, detail, sender) {
+      this.timeRange = detail.time;
+      this.first = false;
+      this.createChart();
     }
+    
   });
 </script>
 </polymer-element>
