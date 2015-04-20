@@ -38,7 +38,7 @@
     </style>
 
     <stock-service id="service" posts="{{stocks}}"></stock-service>
-    <core-signals on-core-signal-dbl-click={{removeStock}}"></core-signals>
+    <core-signals on-core-signal-remove-stock={{removeStock}}"></core-signals>
     
       <div id="stockListDiv">
         <template repeat="{{stock in stocks.results}}">

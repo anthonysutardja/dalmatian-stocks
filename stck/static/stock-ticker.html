@@ -5,7 +5,7 @@
 <meta name="author" content="Andrew Fang">
 
 
-<polymer-element name="stock-ticker" on-dblclick="signalDblClick" attributes="symbol price change name nextEarnings lastEarnings">
+<polymer-element name="stock-ticker" on-mousedown="{{removeStock}}" on-mouseup="{{checkRemoveStock}}" on-mouseleave="{{clearMouse}}" attributes="symbol price change name nextEarnings lastEarnings">
   <template>
 
     <style>
@@ -50,7 +50,7 @@
     }
     </style>
 
-      <paper-button on-click="{{clickEvent}}">
+      <paper-button id="btn" on-click="{{clickEvent}}">
         <div class="body">
           <p id="symbol">{{symbol}}</p>
           <span class="rightAlign">
@@ -66,6 +66,7 @@
       symbol: "na",
       price: "na",
       change: "~~~",
+      start: 0,
       computeColor: {
         toDOM: function(value) {
             if (value.charAt(0) == '-') {
@@ -83,8 +84,16 @@
       domReady: function() {
         this.fire('core-signal', {name: "stock-data", data: {symbol: this.symbol, price: this.price, change: this.change, name:this.name, lastEarnings: this.lastEarnings, nextEarnings: this.nextEarnings}});
       },
-      signalDblClick: function() {
-        this.fire('core-signal', {name: "dbl-click", data: {name: this.symbol}});
+      clearMouse: function() {
+        this.start = 0;
+      },
+      removeStock: function() {
+        this.start = new Date().getTime();
+      },
+      checkRemoveStock: function() {
+        if (new Date().getTime() - this.start > 1000) {
+          this.fire('core-signal', {name: "remove-stock", data: {name: this.symbol}});
+        }
       }
     });
   </script>
