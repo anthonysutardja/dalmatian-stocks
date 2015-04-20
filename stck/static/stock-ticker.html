@@ -91,7 +91,8 @@
         this.start = new Date().getTime();
       },
       checkRemoveStock: function() {
-        if (new Date().getTime() - this.start > 1000) {
+                          console.log(new Date().getTime() - this.start);
+        if (new Date().getTime() - this.start > 700) {
           this.fire('core-signal', {name: "remove-stock", data: {name: this.symbol}});
         }
       }
