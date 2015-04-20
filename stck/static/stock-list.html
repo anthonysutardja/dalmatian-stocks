@@ -38,10 +38,11 @@
     </style>
 
     <stock-service id="service" posts="{{stocks}}"></stock-service>
+    <core-signals on-core-signal-dbl-click={{removeStock}}"></core-signals>
     
       <div id="stockListDiv">
         <template repeat="{{stock in stocks.results}}">
-            <stock-ticker class="stockListItem" symbol="{{stock.symbol}}" price="{{stock.price | makeMoney}}" change="{{stock.change}}" name="{{stock.symbol}}" nextEarnings="{{stock.nextEarnings | formatDate}}" lastEarnings="{{stock.lastEarnings |formatDate}}"></stock-ticker>
+        <stock-ticker class="stockListItem" symbol="{{stock.symbol}}" price="{{stock.price | makeMoney}}" change="{{stock.change}}" name="{{stock.symbol}}" nextEarnings="{{stock.nextEarnings | formatDate}}" lastEarnings="{{stock.lastEarnings |formatDate}}"></stock-ticker>
         </template>
         <paper-button id="addButton" on-click={{addStock}}">
           <div class="buttonBody">+</div>
@@ -52,7 +53,11 @@
   <script>
     Polymer('stock-list', {
       ready: function() {
-        this.stockList = ['AAPL', 'GOOG', 'BOX'];
+        if (localStorage.getItem('stockList') === null) {
+          var empty = [];
+          localStorage.setItem('stockList', JSON.stringify(empty));
+        }
+        this.stockList = JSON.parse(localStorage.getItem('stockList'));
         this.service = this.shadowRoot.querySelector('stock-service');
         this.service.updateStocks(this.stockList);
       },
@@ -71,6 +76,12 @@
           this.stockList.push(stock);
           this.service.updateStocks(this.stockList);
         }
+        localStorage.setItem('stockList', JSON.stringify(this.stockList));
+      },
+      removeStock: function(e, detail, sender) {
+         this.stockList.splice(this.stockList.indexOf(detail.name), 1);
+         this.service.updateStocks(this.stockList);
+         localStorage.setItem('stockList', JSON.stringify(this.stockList));
       }
     });
   </script>

@@ -5,7 +5,7 @@
 <meta name="author" content="Andrew Fang">
 
 
-<polymer-element name="stock-ticker" attributes="symbol price change name nextEarnings lastEarnings">
+<polymer-element name="stock-ticker" on-dblclick="signalDblClick" attributes="symbol price change name nextEarnings lastEarnings">
   <template>
 
     <style>
@@ -82,6 +82,9 @@
       }, 
       domReady: function() {
         this.fire('core-signal', {name: "stock-data", data: {symbol: this.symbol, price: this.price, change: this.change, name:this.name, lastEarnings: this.lastEarnings, nextEarnings: this.nextEarnings}});
+      },
+      signalDblClick: function() {
+        this.fire('core-signal', {name: "dbl-click", data: {name: this.symbol}});
       }
     });
   </script>
