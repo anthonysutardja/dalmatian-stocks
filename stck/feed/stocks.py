@@ -58,7 +58,7 @@ def get_change_from_google(symbol):
     """Return da change."""
 
     base_url = "www.google.com"
-    query_path = "/finance/getprices?i=86400&p=2d&f=d,c&df=cpct&q="
+    query_path = "/finance/getprices?i=86400&p=3d&f=d,c&df=cpct&q="
 
     # Query must contain symbols in capital letters
     symbol = validate_stock_symbol(symbol)
