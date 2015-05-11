@@ -54,7 +54,7 @@
     Polymer('stock-list', {
       ready: function() {
         if (localStorage.getItem('stockList') === null) {
-          var empty = [];
+          var empty = ['GOOG'];
           localStorage.setItem('stockList', JSON.stringify(empty));
         }
         this.stockList = JSON.parse(localStorage.getItem('stockList'));
